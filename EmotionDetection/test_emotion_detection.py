@@ -1,8 +1,32 @@
-from EmotionDetection import emotion_detection
+import unittest
+from EmotionDetection.emotion_detection import emotion_detector
 
-def test_emotion_detector(): 
-    assert(emotion_detection.emotion_detector("I am glad this happened")['dominant_emotion'] == 'joy')
-    assert(emotion_detection.emotion_detector("I am really mad about this")['dominant_emotion'] == 'anger')
-    assert(emotion_detection.emotion_detector("I feel disgusted just hearing about this")['dominant_emotion'] == 'disgust')
-    assert(emotion_detection.emotion_detector("I am so sad about this")['dominant_emotion'] == 'sadness')
-    assert(emotion_detection.emotion_detector("I am really afraid that this will happen")['dominant_emotion'] == 'fear')
+class TestEmotionDetection(unittest.TestCase):
+
+    def test_emotion_joy(self):
+        result = emotion_detector("I am so happy and joyful today!")
+        self.assertIsNotNone(result)
+        self.assertEqual(result["dominant_emotion"], "joy")
+
+    def test_emotion_anger(self):
+        result = emotion_detector("I am very angry and frustrated.")
+        self.assertIsNotNone(result)
+        self.assertEqual(result["dominant_emotion"], "anger")
+
+    def test_emotion_sadness(self):
+        result = emotion_detector("I feel sad and down.")
+        self.assertIsNotNone(result)
+        self.assertEqual(result["dominant_emotion"], "sadness")
+
+    def test_emotion_fear(self):
+        result = emotion_detector("I'm scared and fearful of the dark.")
+        self.assertIsNotNone(result)
+        self.assertEqual(result["dominant_emotion"], "fear")
+
+    def test_emotion_disgust(self):
+        result = emotion_detector("I feel disgusted and sickened by this.")
+        self.assertIsNotNone(result)
+        self.assertEqual(result["dominant_emotion"], "disgust")
+
+if __name__ == "__main__":
+    unittest.main()
